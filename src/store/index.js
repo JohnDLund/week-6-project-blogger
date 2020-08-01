@@ -49,6 +49,18 @@ export default new Vuex.Store({
       }
     },
 
+    async postBlog({ commit }, blogData) {
+      try {
+        let res = await api.post("blogs/", blogData)
+        console.log(res.data)
+        this.dispatch("getBlogs")
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+
+
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },

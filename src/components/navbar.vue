@@ -37,9 +37,10 @@
           <router-link class="nav-link" :to="{ name: 'Profile' }">Profile</router-link>
         </li>
       </ul>
+      <createNewBlog />
       <span class="navbar-text">
         <button class="btn btn-success" @click="login" v-if="!$auth.isAuthenticated">Login</button>
-        <button class="btn btn-danger" @click="logout" v-else>logout</button>
+        <button class="btn btn-danger ml-5" @click="logout" v-else>Logout</button>
       </span>
     </div>
   </nav>
@@ -48,6 +49,7 @@
 <script>
 import { getUserData } from "@bcwdev/auth0-vue";
 import { setBearer, api } from "../store/AxiosStore";
+import createNewBlog from "../components/createNewBlog"
 export default {
   name: "Navbar",
   methods: {
@@ -63,6 +65,9 @@ export default {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
     },
+  },
+  components: {
+    createNewBlog
   },
 };
 </script>

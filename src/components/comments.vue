@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-5 mx-5" style="width: 40rem">
+  <div class="card mb-4">
     <div class="card-body">{{commentData.body}}</div>
     <div class="card-body">
       -

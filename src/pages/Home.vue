@@ -39,9 +39,10 @@ export default {
       return this.$store.state.blogs;
     },
   },
+
   mounted() {
     this.$store.dispatch("getBlogs");
-    console.log(this.$store.state.blogs);
+    console.log(this.$store.state.blogs)
   },
 
   methods: {
