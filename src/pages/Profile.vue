@@ -20,6 +20,7 @@
             </footer>
           </blockquote>
         </div>
+        <button class="btn btn-danger mb-1"  @click="deleteBlog(blog._id)">Delete</button>
         <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button>
       </div>
       <div v-if="commentsClicked">
@@ -58,7 +59,12 @@ export default {
     this.$store.dispatch("getProfileBlogs");
   },
 
-  methods: {},
+  methods: {
+    deleteBlog(blogId) {
+      console.log(blogId)
+      this.$store.dispatch("deleteBlog", blogId);
+    }
+  },
 
 components: {
     comments,

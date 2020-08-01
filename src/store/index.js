@@ -64,13 +64,23 @@ export default new Vuex.Store({
       }
     },
 
-    async postBlog({ commit }, blogData) {
+    async postBlog(blogData) {
       try {
         let res = await api.post("blogs/", blogData)
         console.log(res.data)
         this.dispatch("getBlogs")
       } catch (error) {
         console.error(error);
+      }
+    },
+
+    async deleteBlog({dispatch}, blogId) {
+      try{
+        let res = await api.delete("blogs/" + blogId)
+        console.log(res.data)
+        this.dispatch("getProfileBlogs")
+      } catch (error) {
+        console.error(error)
       }
     },
 
