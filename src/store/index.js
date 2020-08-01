@@ -11,6 +11,8 @@ export default new Vuex.Store({
     blogs: [],
     activeBlog: {},
     comments: [],
+    profileBlogs: [],
+
   },
   mutations: {
     setProfile(state, profile) {
@@ -24,6 +26,9 @@ export default new Vuex.Store({
     },
     setComments(state, commentsData) {
       state.comments = commentsData
+    },
+    setProfileBlogs(state, profileBlogData) {
+      state.profileBlogs = profileBlogData
     }
   },
   actions: {
@@ -44,6 +49,16 @@ export default new Vuex.Store({
         console.log("got comments:", res.data.comments);
         commit("setActiveBlog", res.data.blog)
         commit("setComments", res.data.comments)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getProfileBlogs({ commit }) {
+      try {
+        let res = await api.get("profile/blogs")
+        console.log(res.data)
+        commit("setProfileBlogs", res.data)
       } catch (error) {
         console.error(error);
       }
