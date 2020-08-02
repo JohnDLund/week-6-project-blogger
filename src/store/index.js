@@ -27,6 +27,9 @@ export default new Vuex.Store({
     setComments(state, commentsData) {
       state.comments = commentsData
     },
+    addComments(state, newCommentsData) {
+      state.comments += newCommentsData
+    },
     setProfileBlogs(state, profileBlogData) {
       state.profileBlogs = profileBlogData
     }
@@ -94,6 +97,17 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+
+    async postComment({commit}, activeBlogData) {
+      try {
+        let res = await api.post("comments/", activeBlogData)
+        console.log(res.data)
+        this.commit("addComments", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
 
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;

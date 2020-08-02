@@ -12,7 +12,6 @@
       id="CreateBlogPost"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -32,6 +31,7 @@
                   class="form-control"
                   id="title"
                   placeholder="Enter Blog Title ..."
+                  required
                   v-model="newBlog.title"
                 />
               </div>
@@ -42,6 +42,7 @@
                   id="exampleFormControlTextarea1"
                   rows="5"
                   placeholder="Enter Blog Content ..."
+                  required
                   v-model="newBlog.body"
                 ></textarea>
               </div>
