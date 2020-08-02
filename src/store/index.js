@@ -62,6 +62,7 @@ export default new Vuex.Store({
         let res = await api.get("profile/blogs")
         console.log(res.data)
         commit("setProfileBlogs", res.data)
+        // this.dispatch("getActiveBlog", res.data.id)
       } catch (error) {
         console.error(error);
       }
@@ -98,15 +99,41 @@ export default new Vuex.Store({
       }
     },
 
-    async postComment({commit}, activeBlogData) {
+    async postComment({commit, dispatch}, activeBlogData) {
       try {
         let res = await api.post("comments/", activeBlogData)
         console.log(res.data)
-        this.commit("addComments", res.data)
+        this.dispatch("getActiveBlog", activeBlogData.blogId)
       } catch (error) {
         console.error(error);
       }
     },
+
+    async removeComment({dispatch, commit}, commentObject) {
+      try{
+        let res = await api.delete("comments/" + commentObject._id)
+        console.log(res.data)
+        this.dispatch("getActiveBlog", commentObject.blogId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async changeComment({dispatch}, editedCommentObject) {
+      try{
+        let res = await api.put("comments/" + editedCommentObject._id, editedCommentObject.data)
+        console.log("got the data", res.data)
+        console.log("got the object", editedCommentObject)
+        this.dispatch("getActiveBlog", res.data.blogId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+
+
+
+
 
 
     setBearer({ }, bearer) {

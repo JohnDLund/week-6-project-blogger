@@ -4,32 +4,36 @@
     <img class="rounded" :src="profile.picture" alt />
     <p>{{ profile.email }}</p>
 
-      <div class="row justify-content-center">
-    <div class="col-8">
-      
-    <div v-for="blog in blogs" :key="blog.id">
-      <div class="card mt-4 mb-2">
-        <div class="card-header">{{blog.title}}</div>
-        <img class="card-img m-auto p-2" style="width: 25%" :src="blog.creator.picture" alt="Card image cap" />
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p>{{blog.body}}</p>
-            <footer class="blockquote-footer">
-              {{blog.creator.name}}
-              <br />
-              <cite title="Source Title">{{blog.creator.email}}</cite>
-            </footer>
-          </blockquote>
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div v-for="blog in blogs" :key="blog.id">
+          <div class="card mt-4 mb-2">
+            <div class="card-header">{{blog.title}}</div>
+            <img
+              class="card-img m-auto p-2"
+              style="width: 25%"
+              :src="blog.creator.picture"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>{{blog.body}}</p>
+                <footer class="blockquote-footer">
+                  {{blog.creator.name}}
+                  <br />
+                  <cite title="Source Title">{{blog.creator.email}}</cite>
+                </footer>
+              </blockquote>
+            </div>
+            <editBlog :blogData="blog.id" />
+            <button class="btn btn-danger mb-1" @click="deleteBlog(blog._id)">Delete</button>
+            <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button>
+          </div>
+          <div v-if="commentsClicked">
+            <comments v-for="comment in comments" :commentData="comment" :key="comment.id"></comments>
+          </div>
         </div>
-        <editBlog :blogData="blog.id"/>
-        <button class="btn btn-danger mb-1"  @click="deleteBlog(blog._id)">Delete</button>
-        <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button>
       </div>
-      <div v-if="commentsClicked">
-        <comments v-for="comment in comments" :commentData="comment" :key="comment.id"></comments>
-      </div>
-      </div>
-    </div>
     </div>
   </div>
 </template>
@@ -39,7 +43,7 @@ import comments from "../components/comments";
 import editBlog from "../components/editBlog";
 export default {
   name: "Profile",
-    data() {
+  data() {
     return {
       commentsClicked: false,
     };
@@ -51,10 +55,9 @@ export default {
     blogs() {
       return this.$store.state.profileBlogs;
     },
-        comments() {
+    comments() {
       return this.$store.state.comments;
     },
-
   },
 
   mounted() {
@@ -64,16 +67,16 @@ export default {
 
   methods: {
     deleteBlog(blogId) {
-      console.log(blogId)
+      console.log(blogId);
       this.$store.dispatch("deleteBlog", blogId);
-    }
+    },
   },
 
-components: {
+  components: {
     comments,
     editBlog,
   },
-}
+};
 </script>
 
 <style scoped>

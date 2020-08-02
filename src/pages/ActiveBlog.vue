@@ -61,7 +61,7 @@
       </div>
 
         <div v-if="commentsClicked">
-          <comments v-for="comment in comments" :commentData="comment" :key="comment.id"></comments>
+          <comments v-for="comment in comments" :commentData="comment" :key="comment._id"></comments>
         </div>
     </div>
   </div>
@@ -75,7 +75,7 @@ export default {
 
   data() {
     return {
-      commentsClicked: false,
+      commentsClicked: true,
       newCommentObject: {},
     };
   },
