@@ -64,11 +64,11 @@ export default new Vuex.Store({
       }
     },
 
-    async postBlog(blogData) {
+    async postBlog({dispatch}, blogData) {
       try {
-        let res = await api.post("blogs/", blogData)
+        let res = await api.post("blogs", blogData)
         console.log(res.data)
-        this.dispatch("getBlogs")
+        this.dispatch("getProfileBlogs")
       } catch (error) {
         console.error(error);
       }
@@ -84,7 +84,16 @@ export default new Vuex.Store({
       }
     },
 
-
+    async editBlog({dispatch}, editedBlog) {
+      console.log(editedBlog)
+      try{
+        let res = await api.put("blogs/" + editedBlog._id, editedBlog.data)
+        console.log(res.data)
+        this.dispatch("getProfileBlogs")
+      } catch (error) {
+        console.error(error)
+      }
+    },
 
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;

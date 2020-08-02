@@ -1,15 +1,15 @@
 <template>
-  <div class="createNewBlog">
+  <div class="editBlog">
     <button
       type="button"
-      class="btn btn-primary mr-5"
+      class="btn btn-block btn-success mb-1"
       data-toggle="modal"
-      data-target="#CreateBlogPost"
+      data-target="#editBlog"
       v-if="$auth.isAuthenticated"
-    >Post a New Blog</button>
+    >Edit</button>
     <div
       class="modal fade"
-      id="CreateBlogPost"
+      id="editBlog"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalCenterTitle"
@@ -24,15 +24,15 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="CreateBlogPost">
+            <form @submit.prevent="editBlogPost">
               <div class="form-group">
                 <label for="title">Blog Title</label>
                 <input
                   type="text"
                   class="form-control"
                   id="title"
-                  placeholder="Enter Blog Title ..."
-                  v-model="newBlog.title"
+                  placeholder="Enter new blog title ..."
+                  v-model="editedBlogObject.title"
                 />
               </div>
               <div class="form-group">
@@ -41,12 +41,12 @@
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="5"
-                  placeholder="Enter Blog Content ..."
-                  v-model="newBlog.body"
+                  placeholder="Enter new blog content ..."
+                  v-model="editedBlogObject.body"
                 ></textarea>
               </div>
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="publish" v-model="newBlog.published"/>
+                <input type="checkbox" class="form-check-input" id="publish" v-model="editedBlogObject.published" />
                 <label class="form-check-label" for="publish">Publish Blog?</label>
               </div>
               <div class="d-flex justify-content-between mt-4">
@@ -64,18 +64,22 @@
 
 <script>
 export default {
-  name: "createNewBlog",
+  name: "editBlog",
+  props: ["blogData"],
   data() {
     return {
-      newBlog: {},
+        editedBlogObject: {},
     };
   },
   computed: {},
   methods: {
-    CreateBlogPost() {
-      this.$store.dispatch("postBlog", this.newBlog);
-      $("#CreateBlogPost").modal("hide");
-    },
+    editBlogPost (blogData) {
+        this.$store.dispatch("editBlog", {
+            data: this.editedBlogObject,
+            _id: this.blogData
+        })
+         $("#editBlog").modal("hide");
+    }
   },
   components: {},
 };

@@ -6,6 +6,7 @@
 
       <div class="row justify-content-center">
     <div class="col-8">
+      
     <div v-for="blog in blogs" :key="blog.id">
       <div class="card mt-4 mb-2">
         <div class="card-header">{{blog.title}}</div>
@@ -20,6 +21,7 @@
             </footer>
           </blockquote>
         </div>
+        <editBlog :blogData="blog.id"/>
         <button class="btn btn-danger mb-1"  @click="deleteBlog(blog._id)">Delete</button>
         <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button>
       </div>
@@ -34,6 +36,7 @@
 
 <script>
 import comments from "../components/comments";
+import editBlog from "../components/editBlog";
 export default {
   name: "Profile",
     data() {
@@ -68,6 +71,7 @@ export default {
 
 components: {
     comments,
+    editBlog,
   },
 }
 </script>
