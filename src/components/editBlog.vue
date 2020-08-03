@@ -1,5 +1,5 @@
 <template>
-  <div class="editBlog">
+  <!-- <div class="editBlog">
     <button
       type="button"
       class="btn btn-block btn-success mb-1"
@@ -58,6 +58,37 @@
         </div>
       </div>
     </div>
+  </div>-->
+  <div>
+    <button type="button" class="btn btn-block btn-success mb-1" @click="editClicked=true">Edit</button>
+    <div v-if="editClicked">
+      <form @submit.prevent="editBlogPost">
+        <div class="form-group">
+          <label for="body">Title</label>
+            <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Enter edited Title ..."
+            v-model="editedBlogObject.title"
+          >
+        </div>
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="5"
+            placeholder="Enter edited Body ..."
+            v-model="editedBlogObject.body"
+          ></textarea>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-block btn-danger m-2" @click="editClicked=false">Cancel</button>
+          <button type="submit" class="btn btn-block btn-primary m-2">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -68,18 +99,20 @@ export default {
   props: ["blogData"],
   data() {
     return {
-        editedBlogObject: {},
+      editClicked: false,
+      editedBlogObject: {},
     };
   },
   computed: {},
   methods: {
-    editBlogPost (blogData) {
-        this.$store.dispatch("editBlog", {
-            data: this.editedBlogObject,
-            _id: this.blogData
-        })
-         $("#editBlog").modal("hide");
-    }
+    editBlogPost(blogData) {
+      this.editClicked = false
+      this.$store.dispatch("editBlog", {
+        data: this.editedBlogObject,
+        _id: this.blogData,
+      });
+      $("#editBlog").modal("hide");
+    },
   },
   components: {},
 };

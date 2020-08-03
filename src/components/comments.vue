@@ -3,11 +3,12 @@
     <div class="card-body">{{commentData.body}}</div>
     <div class="card-body">
       <i>{{commentData.creator.name}}</i>
+  
     </div>
-
-    <button class="btn btn-success mb-1" @click="editClicked=true">Edit Comment</button>
-    <button class="btn btn-danger mb-1" @click="deleteComment(commentData)">Delete Comment</button>
-
+  <div v-if="profileId==commentData.creator._id"> 
+    <button class="btn btn-block btn-success mb-1" @click="editClicked=true">Edit Comment</button>
+    <button class="btn btn-block btn-danger mb-1" @click="deleteComment(commentData)">Delete Comment</button>
+</div>
     <div v-if="editClicked">
       <form @submit.prevent="editComment(commentData)">
         <div class="form-group">
@@ -40,7 +41,11 @@ export default {
       editedcommentObject: {},
     };
   },
-  computed: {},
+  computed: {
+    profileId() {
+    return this.$store.state.profile.id
+  },
+  },
   methods: {
     deleteComment(commentObject) {
       console.log(commentObject);

@@ -25,9 +25,9 @@
                 </footer>
               </blockquote>
             </div>
-            <editBlog :blogData="blog.id" />
+            <editBlog :blogData="blog.id" :key="blog.id" />
             <button class="btn btn-danger mb-1" @click="deleteBlog(blog._id)">Delete</button>
-            <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button>
+            <!-- <button class="btn btn-primary" @click="commentsClicked = !commentsClicked">Comments</button> -->
           </div>
           <div v-if="commentsClicked">
             <comments v-for="comment in comments" :commentData="comment" :key="comment.id"></comments>

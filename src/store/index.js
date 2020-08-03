@@ -146,6 +146,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("profile");
         commit("setProfile", res.data);
+        console.log(res.data)
       } catch (error) {
         console.error(error);
       }
